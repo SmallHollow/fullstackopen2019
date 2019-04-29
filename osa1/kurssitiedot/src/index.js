@@ -9,11 +9,19 @@ const Header = (props) => {
   )
 }
 
+const Part = (props) => {
+  return (
+    <p>{props.nimi} {props.maara}</p>
+  )
+}
+
 const Content = (props) => {
   return (
-    <p>
-      {props.osa} {props.harjoitukset}
-    </p>
+    <div>
+      <Part nimi={props.nimi1} maara={props.maara1}/>
+      <Part nimi={props.nimi2} maara={props.maara2}/>
+      <Part nimi={props.nimi3} maara={props.maara3}/>
+    </div>
   )
 }
 
@@ -35,9 +43,7 @@ const App = () => {
   return (
     <div>
       <Header kurssinimi={course} />
-      <Content osa={part1} harjoitukset={exercises1} />
-      <Content osa={part2} harjoitukset={exercises2} />
-      <Content osa={part3} harjoitukset={exercises3} />
+      <Content nimi1={part1} maara1={exercises1} nimi2={part2} maara2={exercises2} nimi3={part3} maara3={exercises3} />
       <Total yht={exercises1 + exercises2 + exercises3} />
     </div>
   )
