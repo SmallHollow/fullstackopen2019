@@ -9,6 +9,12 @@ const Button = (props) => {
   )
 }
 
+const Statistic = (props) => {
+  return (
+    <div>{props.text} {props.value} {props.suffix}</div>
+  )
+}
+
 const Statistics = (props) => {
   const good = props.good
   const neutral = props.neutral
@@ -25,12 +31,12 @@ const Statistics = (props) => {
     return (
       <div>
         <h1>statistiikka</h1>
-        hyvä {good}<br />
-        neutraali {neutral}<br />
-        huono {bad}<br />
-        yhteensä {total}<br />
-        keskiarvo {(good-bad)/total}<br />
-        positiivisia {good/total*100} %
+        <Statistic text="hyvä" value={good} />
+        <Statistic text="neutraali" value={neutral} />
+        <Statistic text="bad" value={bad} />
+        <Statistic text="yhteensä" value={total} />
+        <Statistic text="keskiarvo" value={(good-bad)/total} />
+        <Statistic text="positiivisia" value={good/total*100} suffix=" %" />
       </div>
     )
   }
