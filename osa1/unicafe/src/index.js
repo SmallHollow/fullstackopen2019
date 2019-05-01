@@ -14,17 +14,26 @@ const Statistics = (props) => {
   const neutral = props.neutral
   const bad = props.bad
   const total = good + neutral + bad
-  return (
-    <div>
-      <h1>statistiikka</h1>
-      hyvä {good}<br />
-      neutraali {neutral}<br />
-      huono {bad}<br />
-      yhteensä {total}<br />
-      keskiarvo {(good-bad)/total}<br />
-      positiivisia {good/total*100} %
-    </div>
-  )
+  if (total == 0) {
+    return (
+      <div>
+        <h1>statistiikka</h1>
+        <p>Ei yhtään palautetta annettu</p>
+      </div>
+    )
+  } else {
+    return (
+      <div>
+        <h1>statistiikka</h1>
+        hyvä {good}<br />
+        neutraali {neutral}<br />
+        huono {bad}<br />
+        yhteensä {total}<br />
+        keskiarvo {(good-bad)/total}<br />
+        positiivisia {good/total*100} %
+      </div>
+    )
+  }
 }
 
 const App = () => {
