@@ -15,6 +15,8 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
+  const total = good + neutral + bad
+
   const incGood = () => {
     setGood(good+1)
   }
@@ -35,9 +37,14 @@ const App = () => {
       <Button name="neutraali" clickfunc={incNeutral} />
       <Button name="huono" clickfunc={incBad}/>
       <h1>statistiikka</h1>
-      <p>hyvä {good}</p>
-      <p>neutraali {neutral}</p>
-      <p>huono {bad}</p>
+      <div>
+        hyvä {good}<br />
+        neutraali {neutral}<br />
+        huono {bad}<br />
+        yhteensä {total}<br />
+        keskiarvo {(good-bad)/total}<br />
+        positiivisia {good/total*100} %
+      </div>
     </div>
 
   )
