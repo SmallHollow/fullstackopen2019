@@ -17,6 +17,18 @@ const VoteButton = (props) => {
   )
 }
 
+const Anecdote = (props) => {
+  // console.log(props)
+  return (
+    <div>
+    {props.text}
+    <br />
+    has {props.votes} votes
+    <br />
+    </div>
+  )
+}
+
 const App = (props) => {
   const [selected, setSelected] = useState(0)
   const [points, setPoints] = useState([])
@@ -36,14 +48,19 @@ const App = (props) => {
     setPoints(copypoints)
   }
 
+  const mostVotes = () => {
+    let max = Math.max.apply(Math, points)
+    return points.indexOf(max)
+  }
+
   return (
     <div>
-      {props.anecdotes[selected]}
-      <br />
-      has {points[selected]} votes
-      <br />
+      <h1>Anecdote of the day</h1>
+      <Anecdote text={props.anecdotes[selected]} votes={points[selected]} />
       <VoteButton clickfunc={handlePoints}/>
       <RandomButton clickfunc={setRandomAnecdote} />
+      <h1>Anecdote with most votes</h1>
+      <Anecdote text={props.anecdotes[mostVotes()]} votes={points[mostVotes()]} />
     </div>
   )
 }
