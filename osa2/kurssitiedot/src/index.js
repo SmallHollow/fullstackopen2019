@@ -18,12 +18,11 @@ const Content = ({parts}) => {
 }
 
 const Total = ({parts}) => {
-  let yht = 0
-  parts.forEach(part => {
-    yht += part.exercises
-  })
+  let initValue = 0
+  const total = parts.reduce( (s, p) => s + p.exercises, initValue)
+
   return (
-    <p>yhteensä {yht} tehtävää</p>
+      <p>yhteensä {total} tehtävää</p>
   )
 }
 
