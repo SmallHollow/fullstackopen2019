@@ -9,18 +9,40 @@ const RandomButton = (props) => {
   )
 }
 
+const VoteButton = (props) => {
+  return (
+    <button onClick={props.clickfunc}>
+      vote
+    </button>
+  )
+}
+
 const App = (props) => {
   const [selected, setSelected] = useState(0)
+  const [points, setPoints] = useState([])
+
+  if (points.length !== props.anecdotes.length) {
+    setPoints(new Array(props.anecdotes.length).fill(0))
+  }
 
   const setRandomAnecdote = () => {
     let rand = Math.floor(Math.random() * props.anecdotes.length)
     setSelected(rand)
   }
 
+  const handlePoints = () => {
+    const copypoints = [...points]
+    copypoints[selected] += 1
+    setPoints(copypoints)
+  }
+
   return (
     <div>
       {props.anecdotes[selected]}
       <br />
+      has {points[selected]} votes
+      <br />
+      <VoteButton clickfunc={handlePoints}/>
       <RandomButton clickfunc={setRandomAnecdote} />
     </div>
   )
