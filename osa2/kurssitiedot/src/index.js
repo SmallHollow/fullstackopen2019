@@ -17,8 +17,11 @@ const Content = ({parts}) => {
   )
 }
 
-const Total = (props) => {
-  const yht = props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises
+const Total = ({parts}) => {
+  let yht = 0
+  parts.forEach(part => {
+    yht += part.exercises
+  })
   return (
     <p>yhteensä {yht} tehtävää</p>
   )
@@ -55,6 +58,11 @@ const App = () => {
         name: 'Komponenttien tila',
         exercises: 14,
         id: 3
+      },
+      {
+        name: 'Redux',
+        exercises: 7,
+        id: 4
       }
     ]
   }
@@ -62,6 +70,7 @@ const App = () => {
   return (
     <div>
       <Course course={course} />
+      <Total parts={course.parts}/>
     </div>
   )
 }
