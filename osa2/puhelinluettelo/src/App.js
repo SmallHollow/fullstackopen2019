@@ -7,11 +7,26 @@ const Name = ({name, number}) => {
 }
 
 const App = () => {
-  const [ persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '' }
+  const [persons, setPersons] = useState([
+    { name: 'Arto Hellas', number: '040-123456' },
+    { name: 'Martti Tienari', number: '040-123456' },
+    { name: 'Arto Järvinen', number: '040-123456' },
+    { name: 'Lea Kutvonen', number: '040-123456' }
   ])
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
+  const [ nameFilter, setNameFilter ] = useState('')
+
+  const nameExists = (name) => {
+    let exists = false
+    persons.forEach(person => {
+      let lowercaseName = person.name.toLowerCase()
+      if (name.toLowerCase() === lowercaseName) {
+        exists = true
+      }
+    })
+    return exists
+  }
 
   const addName = (event) => {
     event.preventDefault()
@@ -19,13 +34,7 @@ const App = () => {
       name: newName,
       number: newNumber
     }
-    let exists = false
-    persons.forEach(person => {
-      if (newName === person.name) {
-        exists = true
-      }
-    })
-    if (exists) {
+    if (nameExists(newName)) {
       alert(`${newName} on jo luettelossa!`)
     } else {
       setPersons(persons.concat(nameObject))
@@ -42,11 +51,23 @@ const App = () => {
     setNewNumber(event.target.value)
   }
 
-  const listNames = () => persons.map(person => <Name key={person.name} name={person.name} number={person.number} />)
+  const handleFilterChange = (event) => {
+    setNameFilter(event.target.value)
+  }
+
+  const listNames = () => {
+    const lcNameFilter = nameFilter.toLowerCase()
+    const filtered = persons.filter(person => person.name.toLowerCase().includes(lcNameFilter))
+    return filtered.map(person => {
+      return <Name key={person.name} name={person.name} number={person.number} />
+    })
+  }
 
   return (
     <div>
-      <h2>Puhelinluettelo</h2>
+      <h1>Puhelinluettelo</h1>
+      <div>Rajaa näytettäviä: <input value={nameFilter} onChange={handleFilterChange} /></div>
+      <h2>Lisää uusi</h2>
       <form onSubmit={addName}>
         <div>nimi: <input value={newName} onChange={handleNameChange} /></div>
         <div>numero: <input value={newNumber} onChange={handleNumberChange} /></div>
