@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import PersonForm from './components/PersonForm.js'
+import Filter from './components/Filter.js'
+import Persons from './components/Persons.js'
 
 const Name = ({name, number}) => {
   return (
@@ -65,20 +68,13 @@ const App = () => {
 
   return (
     <div>
-      <h1>Puhelinluettelo</h1>
-      <div>Rajaa näytettäviä: <input value={nameFilter} onChange={handleFilterChange} /></div>
-      <h2>Lisää uusi</h2>
-      <form onSubmit={addName}>
-        <div>nimi: <input value={newName} onChange={handleNameChange} /></div>
-        <div>numero: <input value={newNumber} onChange={handleNumberChange} /></div>
-        <div>
-          <button type="submit">lisää</button>
-        </div>
-      </form>
-      <h2>Numerot</h2>
-      <ul>
-      {listNames()}
-      </ul>
+      <h2>Puhelinluettelo</h2>
+      <Filter text={nameFilter} eventHandler={handleFilterChange} />
+      <h3>Lisää uusi</h3>
+      <PersonForm name={newName} number={newNumber} nameHandler={handleNameChange}
+        numberHandler={handleNumberChange} submitHandler={addName} />
+      <h3>Numerot</h3>
+      <Persons list={listNames()} />
     </div>
   )
 
