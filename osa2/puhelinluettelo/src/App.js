@@ -17,7 +17,17 @@ const App = () => {
     const nameObject = {
       name: newName
     }
-    setPersons(persons.concat(nameObject))
+    let exists = false
+    persons.forEach(person => {
+      if (newName === person.name) {
+        exists = true
+      }
+    })
+    if (exists) {
+      alert(`${newName} on jo luettelossa!`)
+    } else {
+      setPersons(persons.concat(nameObject))
+    }
     setNewName('')
   }
 
