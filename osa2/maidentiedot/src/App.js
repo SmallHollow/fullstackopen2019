@@ -18,6 +18,12 @@ const Languages = ({languages}) => {
   )
 }
 
+const ShowButton = ({country, handler}) => {
+  return (
+    <button onClick={handler} value={country}>show</button>
+  )
+}
+
 const CountryInfo = ({info}) => {
   return (
     <div>
@@ -46,6 +52,11 @@ const App = () => {
     setCountry(event.target.value)
   }
 
+  const handleCountrySelection = (event) => {
+    console.log(event.target.value)
+    setCountry(event.target.value)
+  }
+
   const hook = () => {
     axios
       .get('https://restcountries.eu/rest/v2/all')
@@ -61,7 +72,11 @@ const App = () => {
     }
     if (filtered.length > 0 && filtered.length <= MAXCOUNTRIES) {
       return filtered.map(c => {
-        return <div key={c.name}>{c.name}</div>
+        return (
+          <div key={c.name}>
+            {c.name} <ShowButton country={c.name} handler={handleCountrySelection} />
+          </div>
+        )
       })
     }
     if (filtered.length > MAXCOUNTRIES && country !== "") {
