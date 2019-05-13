@@ -57,6 +57,7 @@ const CountryInfo = ({info}) => {
 const App = () => {
   const [ countries, setCountries ] = useState([])
   const [ country, setCountry ] = useState('')
+  const [ weather, setWeather ] = useState('')
   const MAXCOUNTRIES = 10
 
   const handleCountryChange = (event) => {
