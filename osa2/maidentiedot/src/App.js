@@ -24,6 +24,16 @@ const ShowButton = ({country, handler}) => {
   )
 }
 
+const CapitalWeather = ({capital}) => {
+  return (
+    <div>
+      <h2>Weather in {capital}</h2>
+      <b>temperature:</b> (unimplemented)<br />
+      <b>wind:</b> (unimplemented)
+    </div>
+  )
+}
+
 const CountryInfo = ({info}) => {
   return (
     <div>
@@ -39,6 +49,7 @@ const CountryInfo = ({info}) => {
       <div>
       <img src={info.flag} alt="Flag" style={{width: 300 }} />
       </div>
+      <CapitalWeather capital={info.capital} />
   </div>
   )
 }
