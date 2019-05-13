@@ -47,7 +47,12 @@ const App = () => {
     if (nameExists(newName)) {
       alert(`${newName} on jo luettelossa!`)
     } else {
-      setPersons(persons.concat(nameObject))
+      axios
+        .post('http://localhost:3001/persons', nameObject)
+        .then(response => {
+          console.log(response)
+          setPersons(persons.concat(nameObject))
+        })
     }
     setNewName('')
     setNewNumber('')
