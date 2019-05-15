@@ -55,6 +55,9 @@ const App = () => {
           .then(updatedNumber => {
             setPersons(persons.map(p => (p.id === person.id ? updatedNumber : p)))
             setNotification(`Korvattiin numero, uusi numero: ${updatedNumber.number}`)
+            setTimeout(() => {
+              setNotification(null)
+            }, 5000)
           })
       }
     } else {
@@ -63,6 +66,9 @@ const App = () => {
         .then(returnedName => {
           setPersons(persons.concat(returnedName))
           setNotification(`Lisättiin ${returnedName.name}`)
+          setTimeout(() => {
+            setNotification(null)
+          }, 5000)
         })
     }
     setNewName('')
@@ -77,8 +83,11 @@ const App = () => {
       personService
         .del(delid)
         .then(deletedName => {
-          setNotification(`Poistettiin ${person.name}`)
           setPersons(persons.filter(p => p.id !== delid))
+          setNotification(`Poistettiin ${person.name}`)
+          setTimeout(() => {
+            setNotification(null)
+          }, 5000)
         })
     }
   }
