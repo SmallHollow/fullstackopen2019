@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
+const OpenWeatherMapAPIKey = "enter your API key here"
+
 const CountryForm = ({country, countryHandler}) => {
   return (
     <div>
@@ -24,17 +26,7 @@ const ShowButton = ({country, handler}) => {
   )
 }
 
-const CapitalWeather = ({capital}) => {
-  return (
-    <div>
-      <h2>Weather in {capital}</h2>
-      <b>temperature:</b> (unimplemented)<br />
-      <b>wind:</b> (unimplemented)
-    </div>
-  )
-}
-
-const CountryInfo = ({info}) => {
+const CountryInfo = ({info, capitalWeather }) => {
   return (
     <div>
       <h1>{info.name}</h1>
@@ -49,7 +41,12 @@ const CountryInfo = ({info}) => {
       <div>
       <img src={info.flag} alt="Flag" style={{width: 300 }} />
       </div>
-      <CapitalWeather capital={info.capital} />
+      <div>
+        <h2>Weather in {info.capital}</h2>
+        <b>temperature:</b> {capitalWeather === null ? "" : capitalWeather.main.temp} Celsius<br />
+        <b>humidity:</b> {capitalWeather === null ? "" : capitalWeather.main.humidity}<br />
+        <b>wind:</b> {capitalWeather === null ? "" : capitalWeather.wind.speed}
+      </div>
   </div>
   )
 }
@@ -57,7 +54,7 @@ const CountryInfo = ({info}) => {
 const App = () => {
   const [ countries, setCountries ] = useState([])
   const [ country, setCountry ] = useState('')
-  const [ weather, setWeather ] = useState('')
+  const [ weather, setWeather ] = useState(null)
   const MAXCOUNTRIES = 10
 
   const handleCountryChange = (event) => {
@@ -80,7 +77,14 @@ const App = () => {
   const listCountries = () => {
     const filtered = countries.filter(c => c.name.toLowerCase().includes(country.toLowerCase()))
     if (filtered.length === 1) {
-      return <CountryInfo info={filtered[0]} />
+      if (weather === null) {
+        axios
+          .get(`http://api.openweathermap.org/data/2.5/weather?q=${filtered[0].capital}&APPID=${OpenWeatherMapAPIKey}&units=metric`)
+          .then(weatherData => {
+            setWeather(weatherData.data)
+          })
+      }
+      return <CountryInfo info={filtered[0]} capitalWeather={weather} />
     }
     if (filtered.length > 0 && filtered.length <= MAXCOUNTRIES) {
       return filtered.map(c => {
