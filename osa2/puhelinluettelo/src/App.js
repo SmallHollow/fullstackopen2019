@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PersonForm from './components/PersonForm.js'
 import Filter from './components/Filter.js'
 import Persons from './components/Persons.js'
+import Notification from './components/Notification.js'
 import personService from './services/persons.js'
 
 const Name = ({id, name, number, deleteHandler}) => {
@@ -15,6 +16,7 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ nameFilter, setNameFilter ] = useState('')
+  const [ notification, setNotification ] = useState('virhe')
 
   const hook = () => {
     personService
@@ -52,6 +54,7 @@ const App = () => {
           .update(person.id, nameObject)
           .then(updatedNumber => {
             setPersons(persons.map(p => (p.id === person.id ? updatedNumber : p)))
+            setNotification(`Korvattiin numero, uusi numero: ${updatedNumber.number}`)
           })
       }
     } else {
@@ -59,6 +62,7 @@ const App = () => {
         .create(nameObject)
         .then(returnedName => {
           setPersons(persons.concat(returnedName))
+          setNotification(`Lisättiin ${returnedName.name}`)
         })
     }
     setNewName('')
@@ -73,6 +77,7 @@ const App = () => {
       personService
         .del(delid)
         .then(deletedName => {
+          setNotification(`Poistettiin ${person.name}`)
           setPersons(persons.filter(p => p.id !== delid))
         })
     }
@@ -101,6 +106,7 @@ const App = () => {
   return (
     <div>
       <h2>Puhelinluettelo</h2>
+      <Notification message={notification} />
       <Filter text={nameFilter} eventHandler={handleFilterChange} />
       <h3>Lisää uusi</h3>
       <PersonForm name={newName} number={newNumber} nameHandler={handleNameChange}
