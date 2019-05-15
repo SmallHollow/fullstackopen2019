@@ -4,9 +4,9 @@ import Filter from './components/Filter.js'
 import Persons from './components/Persons.js'
 import personService from './services/persons.js'
 
-const Name = ({name, number}) => {
+const Name = ({id, name, number, deleteHandler}) => {
   return (
-    <li>{name} {number}</li>
+    <li>{name} {number} <button onClick={deleteHandler} value={id}>poista</button></li>
   )
 }
 
@@ -57,6 +57,19 @@ const App = () => {
     setNewNumber('')
   }
 
+  const deleteName = (event) => {
+    const delid = Number(event.target.value)
+    const person = persons.filter(p => p.id === delid)[0]
+    const result = window.confirm(`Poistetaanko ${person.name}?`)
+    if (result) {
+      personService
+        .del(delid)
+        .then(deletedName => {
+          setPersons(persons.filter(p => p.id !== delid))
+        })
+    }
+  }
+
   const handleNameChange = (event) => {
     setNewName(event.target.value)
   }
@@ -73,7 +86,7 @@ const App = () => {
     const lcNameFilter = nameFilter.toLowerCase()
     const filtered = persons.filter(person => person.name.toLowerCase().includes(lcNameFilter))
     return filtered.map(person => {
-      return <Name key={person.name} name={person.name} number={person.number} />
+      return <Name key={person.name} id={person.id} name={person.name} number={person.number} deleteHandler={deleteName} />
     })
   }
 

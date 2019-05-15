@@ -19,31 +19,6 @@
       "name": "Lea Kutvonen",
       "number": "040-123456",
       "id": 4
-    },
-    {
-      "name": "Jorma Kinnari",
-      "number": "12345",
-      "id": 5
-    },
-    {
-      "name": "Black Sabbath",
-      "number": "666",
-      "id": 6
-    },
-    {
-      "name": "Matti Nykänen",
-      "number": "787",
-      "id": 7
-    },
-    {
-      "name": "Jens Weis",
-      "number": "123",
-      "id": 8
-    },
-    {
-      "name": "Kimmo Koo",
-      "number": "7777",
-      "id": 9
     }
   ]
 }
