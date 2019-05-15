@@ -45,7 +45,15 @@ const App = () => {
       number: newNumber
     }
     if (nameExists(newName)) {
-      alert(`${newName} on jo luettelossa!`)
+      const result = window.confirm(`${newName} on jo luettelossa, korvataanko vanha numero uudella?`)
+      if (result) {
+        const person = persons.filter(p => p.name === newName)[0]
+        personService
+          .update(person.id, nameObject)
+          .then(updatedNumber => {
+            setPersons(persons.map(p => (p.id === person.id ? updatedNumber : p)))
+          })
+      }
     } else {
       personService
         .create(nameObject)
