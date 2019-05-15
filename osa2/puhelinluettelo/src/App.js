@@ -17,6 +17,7 @@ const App = () => {
   const [ newNumber, setNewNumber ] = useState('')
   const [ nameFilter, setNameFilter ] = useState('')
   const [ notification, setNotification ] = useState(null)
+  const [ errorState, setErrorState ] = useState(false)
 
   const hook = () => {
     personService
@@ -59,6 +60,14 @@ const App = () => {
               setNotification(null)
             }, 5000)
           })
+          .catch(error => {
+            setErrorState(true)
+            setNotification(`Tietoa henkilöstä ${person.name} ei löydy!`)
+            setTimeout(() => {
+              setNotification(null)
+              setErrorState(false)
+            }, 5000)
+          })
       }
     } else {
       personService
@@ -89,6 +98,14 @@ const App = () => {
             setNotification(null)
           }, 5000)
         })
+        .catch(error => {
+          setErrorState(true)
+          setNotification(`Henkilön ${person.name} poisto ei onnistunut!`)
+          setTimeout(() => {
+            setNotification(null)
+            setErrorState(false)
+          }, 5000)
+        })
     }
   }
 
@@ -115,7 +132,7 @@ const App = () => {
   return (
     <div>
       <h2>Puhelinluettelo</h2>
-      <Notification message={notification} />
+      <Notification message={notification} errorState={errorState} />
       <Filter text={nameFilter} eventHandler={handleFilterChange} />
       <h3>Lisää uusi</h3>
       <PersonForm name={newName} number={newNumber} nameHandler={handleNameChange}
