@@ -16,7 +16,7 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ nameFilter, setNameFilter ] = useState('')
-  const [ notification, setNotification ] = useState('virhe')
+  const [ notification, setNotification ] = useState(null)
 
   const hook = () => {
     personService
