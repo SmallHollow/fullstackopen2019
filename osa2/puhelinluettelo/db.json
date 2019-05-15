@@ -29,6 +29,21 @@
       "name": "Black Sabbath",
       "number": "666",
       "id": 6
+    },
+    {
+      "name": "Matti Nykänen",
+      "number": "787",
+      "id": 7
+    },
+    {
+      "name": "Jens Weis",
+      "number": "123",
+      "id": 8
+    },
+    {
+      "name": "Kimmo Koo",
+      "number": "7777",
+      "id": 9
     }
   ]
 }

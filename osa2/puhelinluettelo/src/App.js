@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PersonForm from './components/PersonForm.js'
 import Filter from './components/Filter.js'
 import Persons from './components/Persons.js'
-import axios from 'axios'
+import personService from './services/persons.js'
 
 const Name = ({name, number}) => {
   return (
@@ -17,10 +17,10 @@ const App = () => {
   const [ nameFilter, setNameFilter ] = useState('')
 
   const hook = () => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        setPersons(response.data)
+    personService
+      .getAll()
+      .then(initPersons => {
+        setPersons(initPersons)
       })
     }
   console.log('render', persons.length, 'persons')
@@ -47,11 +47,10 @@ const App = () => {
     if (nameExists(newName)) {
       alert(`${newName} on jo luettelossa!`)
     } else {
-      axios
-        .post('http://localhost:3001/persons', nameObject)
-        .then(response => {
-          console.log(response)
-          setPersons(persons.concat(nameObject))
+      personService
+        .create(nameObject)
+        .then(returnedName => {
+          setPersons(persons.concat(returnedName))
         })
     }
     setNewName('')
