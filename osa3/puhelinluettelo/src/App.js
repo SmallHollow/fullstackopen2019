@@ -125,7 +125,7 @@ const App = () => {
     const lcNameFilter = nameFilter.toLowerCase()
     const filtered = persons.filter(person => person.name.toLowerCase().includes(lcNameFilter))
     return filtered.map(person => {
-      return <Name key={person.name} id={person.id} name={person.name} number={person.number} deleteHandler={deleteName} />
+      return <Name key={person.id} id={person.id} name={person.name} number={person.number} deleteHandler={deleteName} />
     })
   }
 
