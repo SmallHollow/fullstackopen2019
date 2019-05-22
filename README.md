@@ -9,5 +9,11 @@ Eri osat palautettu omiin hakemistoihinsa:
   - kurssitiedot
   - unicafe
 - osa2
+  - kurssitiedot
+  - maidentiedot
+  - puhelinluettelo
+- osa3
+  - puhelinluettelo
+  - ks. myös erillinen repositorio
 
 jne.
