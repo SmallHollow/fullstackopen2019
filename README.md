@@ -15,5 +15,7 @@ Eri osat palautettu omiin hakemistoihinsa:
 - osa3
   - puhelinluettelo
   - ks. myös erillinen repositorio: [https://github.com/SmallHollow/fso2019osa3](https://github.com/SmallHollow/fso2019osa3)
+- osa4
+  - blogilista
 
 jne.
