@@ -3,19 +3,17 @@ const dummy = (blogs) => {
 }
 
 const totalLikes = (blogs) => {
-  if (blogs.length === 0) {
-    return 0
-  } else if (blogs.length === 1) {
-    return blogs[0].likes
-  } else {
-    likeCount = 0
-    blogs.forEach(blog => {
-      likeCount += blog.likes
-    })
-    return likeCount
+  return blogs.length === 0 ? 0 : blogs.reduce((sum,blog) => (sum+blog.likes),0)
+}
+
+const favoriteBlog = (blogs) => {
+  return {
+    title: "foo",
+    author: "boo",
+    likes: 0
   }
 }
 
 module.exports = {
-  dummy, totalLikes
+  dummy, favoriteBlog, totalLikes
 }
