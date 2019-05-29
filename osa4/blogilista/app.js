@@ -8,13 +8,10 @@ app.use('/api/blogs', blogsRouter)
 const cors = require('cors')
 const mongoose = require('mongoose')
 
-const Blog = require('./models/blog')
-
-const mongoUrl = config.MONGODB_URI
+const mongoUrl = config.mongodb_uri
 mongoose.connect(mongoUrl, { useNewUrlParser: true })
 
 app.use(cors())
 app.use(bodyParser.json())
-
 
 module.exports = app
