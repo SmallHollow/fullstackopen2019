@@ -46,6 +46,20 @@ test('uuden blogin lisäys', async () => {
 
 })
 
+test('likes ei anneta arvoa', async () => {
+  const testNoLikes = {
+    title: 'Ei tykkäyksiä -blogi',
+    author: 'Testeri',
+    url: 'http://www.yle.fi',
+  }
+
+  let response = await api.post('/api/blogs').send(testNoLikes)
+  expect(response.body.title).toBe(testNoLikes.title)
+  expect(response.body.author).toBe(testNoLikes.author)
+  expect(response.body.url).toBe(testNoLikes.url)
+  expect(response.body.likes).toBe(0)
+})
+
 test('lisäys ilman titlea ja urlia', async () => {
   const testNoTitle = {
     author: 'Testeri',
