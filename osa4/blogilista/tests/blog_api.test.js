@@ -46,6 +46,25 @@ test('uuden blogin lisäys', async () => {
 
 })
 
+test('lisäys ilman titlea ja urlia', async () => {
+  const testNoTitle = {
+    author: 'Testeri',
+    url: 'http://www.yle.fi',
+    likes: 6
+  }
+
+  const testNoUrl = {
+    title: 'URL-less blog',
+    author: 'Testeri',
+    likes: 6
+  }
+
+  let response = await api.post('/api/blogs').send(testNoTitle)
+  expect(response.status).toBe(400)
+  response = await api.post('/api/blogs').send(testNoUrl)
+  expect(response.status).toBe(400)
+})
+
 afterAll(() => {
   mongoose.connection.close()
 })

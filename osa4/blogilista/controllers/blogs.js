@@ -8,18 +8,22 @@ blogsRouter.get('/', async (request, response) => {
 
 blogsRouter.post('/', async (request, response) => {
   const body = request.body
-  const blog = new Blog({
-    title: body.title,
-    author: body.author,
-    url: body.url,
-    likes: body.likes
-  })
 
   try {
-    const savedBlog = await blog.save()
-    response.json(savedBlog.toJSON())
+    if (body.title && body.url) {
+      const blog = new Blog({
+        title: body.title,
+        author: body.author,
+        url: body.url,
+        likes: body.likes
+      })
+      const savedBlog = await blog.save()
+      response.json(savedBlog.toJSON())
+    } else {
+      response.status(400).end()
+    }
   } catch (exception) {
-    //
+    console.log("Jotain tapahtuu...")
   }
 })
 
