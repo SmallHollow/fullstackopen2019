@@ -1,7 +1,9 @@
-# fullstackopen2019
-[Full Stack Open 2019](https://fullstackopen.com/) -kurssin tehtävät.
+# Full Stack Open
+[Full Stack Open](https://fullstackopen.com/) -kurssin tehtävät.
 
 Eri osat palautettu omiin hakemistoihinsa:
+
+Seuraavat osat palautettu *vuoden 2019* kurssin aikana 28.4.–22.5.2019:
 
 - osa0
 - osa1
@@ -15,7 +17,10 @@ Eri osat palautettu omiin hakemistoihinsa:
 - osa3
   - puhelinluettelo
   - ks. myös erillinen repositorio: [https://github.com/SmallHollow/fso2019osa3](https://github.com/SmallHollow/fso2019osa3)
-- osa4
+
+Seuraavat osat palautettu *vuoden 2020* kurssin aikana:
+
+- osa4 (osa tehtävistä tehty vuoden 2019 kurssille 22.5.–2.6.2019)
   - blogilista
 
 jne.
