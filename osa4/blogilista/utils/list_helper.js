@@ -52,7 +52,23 @@ const mostBlogs = (blogs) => {
 
 // 4.7*: apufunktioita ja yksikkötestejä, step5
 
-const mostLikes = (blogs) => {};
+const mostLikes = (blogs) => {
+  const blogAuthors = new Set([...blogs.map((blog) => blog.author)]);
+  const blogArray = [...blogAuthors].map((author) => {
+    return {
+      author: author,
+      likes: blogs.reduce((acc, cur) => {
+        return author === cur.author ? acc + cur.likes : acc;
+      }, 0),
+    };
+  });
+  let theBlog = blogArray[0];
+  blogArray.forEach((blog) => {
+    if (blog.likes > theBlog.likes)
+      theBlog = blog;
+  })
+  return theBlog;
+};
 
 module.exports = {
   dummy,
