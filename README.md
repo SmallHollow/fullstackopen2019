@@ -10,17 +10,6 @@ Seuraavat osat palautettu *vuoden 2019* kurssin aikana 28.4.–22.5.2019:
   - anekdootit
   - kurssitiedot
   - unicafe
-- osa2
-  - kurssitiedot
-  - maidentiedot
-  - puhelinluettelo
-- osa3
-  - puhelinluettelo
-  - ks. myös erillinen repositorio: [https://github.com/SmallHollow/fso2019osa3](https://github.com/SmallHollow/fso2019osa3)
 
-Seuraavat osat palautettu *vuoden 2020* kurssin aikana:
-
-- osa4 (osa tehtävistä tehty vuoden 2019 kurssille 22.5.–2.6.2019)
-  - blogilista
-
-jne.
+Osien 2 ja 3 palautukset *vuoden 2019* kurssille poistettu pyynnöstä 5.3.2021
+ja lisätty vanhojen hakemistojen nimiin "_2019".
