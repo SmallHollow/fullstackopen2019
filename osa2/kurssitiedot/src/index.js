@@ -1,64 +1,77 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-const Header = (props) => {
+const Header = ({ course }) => {
   return (
     <div>
-      <h1>{props.kurssinimi}</h1>
+      <h1>{course}</h1>
     </div>
-  )
-}
+  );
+};
 
-const Part = (props) => {
+const Part = ({ name, exercises }) => {
   return (
-    <p>{props.nimi} {props.maara}</p>
-  )
-}
+    <p>
+      {name} {exercises}
+    </p>
+  );
+};
 
-const Content = (props) => {
-  console.log(props)
+const Content = ({ parts }) => {
   return (
     <div>
-    <Part nimi={props.parts[0].name} maara={props.parts[0].exercises} />
-    <Part nimi={props.parts[1].name} maara={props.parts[1].exercises} />
-    <Part nimi={props.parts[2].name} maara={props.parts[2].exercises} />
+      <Part name={parts[0].name} exercises={parts[0].exercises} />
+      <Part name={parts[1].name} exercises={parts[1].exercises} />
+      <Part name={parts[2].name} exercises={parts[2].exercises} />
     </div>
-  )
-}
+  );
+};
 
-const Total = (props) => {
-  const yht = props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises
+const Total = ({ parts }) => {
+  const yht =
+    parts[0].exercises +
+    parts[1].exercises +
+    parts[2].exercises;
+  return <p>yhteensä {yht} tehtävää</p>;
+};
+
+const Course = ({ course }) => {
   return (
-    <p>yhteensä {yht} tehtävää</p>
-  )
-}
+    <>
+      <Header course={course.name} />
+      <Content parts={course.parts} />
+    </>
+  );
+};
 
 const App = () => {
   const course = {
-    name: 'Half Stack -sovelluskehitys',
+    name: 'Half Stack application development',
+    id: 1,
     parts: [
       {
-        name: 'Reactin perusteet',
-        exercises: 10
+        name: 'Fundamentals of React',
+        exercises: 10,
+        id: 1,
       },
       {
-        name: 'Tiedonvälitys propseilla',
-        exercises: 7
+        name: 'Using props to pass data',
+        exercises: 7,
+        id: 2,
       },
       {
-        name: 'Komponenttien tila',
-        exercises: 14
-      }
-    ]
-  }
+        name: 'State of a component',
+        exercises: 14,
+        id: 3,
+      },
+    ],
+  };
 
   return (
     <div>
-      <Header kurssinimi={course.name} />
-      <Content parts={course.parts} />
-      <Total parts={course.parts} />
+      <Course course={course} />
     </div>
-  )
-}
+  );
+};
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(<App />, document.getElementById('root'));
