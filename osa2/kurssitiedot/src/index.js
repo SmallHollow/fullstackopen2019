@@ -21,15 +21,21 @@ const Content = ({ parts }) => {
   return (
     <div>
       {parts.map((part) => (
-        <Part key={part.name} name={part.name} exercises={part.exercises} />
+        <Part key={part.name} name={part.name} exercises={part.exercises} />
       ))}
     </div>
   );
 };
 
 const Total = ({ parts }) => {
-  const yht = parts[0].exercises + parts[1].exercises + parts[2].exercises;
-  return <p>yhteensä {yht} tehtävää</p>;
+  const total = parts.reduce((acc, part) => {
+    return acc + part.exercises;
+  }, 0);
+  return (
+    <p>
+      <b>total of {total} exercises</b>
+    </p>
+  );
 };
 
 const Course = ({ course }) => {
@@ -37,6 +43,7 @@ const Course = ({ course }) => {
     <>
       <Header course={course.name} />
       <Content parts={course.parts} />
+      <Total parts={course.parts} />
     </>
   );
 };
