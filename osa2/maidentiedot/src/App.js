@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+const OpenWeatherMapAPIKey = process.env.REACT_APP_OPEN_WEATHER_API_KEY;
+
 const Input = ({ country, handler }) => {
   return (
     <div>
@@ -9,7 +11,39 @@ const Input = ({ country, handler }) => {
   );
 };
 
+const Weather = ({ weather, capital }) => {
+  return (
+    weather && (
+      <div>
+        <h2>Weather in {capital}</h2>
+        <div>
+          <b>temperature: </b>
+          {weather.main?.temp} Celsius
+        </div>
+        <div>
+          <b>wind: </b>
+          {weather.wind?.speed} km/h
+        </div>
+      </div>
+    )
+  );
+};
+
 const Country = ({ country }) => {
+  const [weather, setWeather] = useState(null);
+
+  useEffect(() => {
+    if (country.capital !== '') {
+      axios
+        .get(
+          `http://api.openweathermap.org/data/2.5/weather?q=${country.capital}&APPID=${OpenWeatherMapAPIKey}&units=metric`
+        )
+        .then((weatherData) => {
+          setWeather(weatherData.data);
+        });
+    }
+  }, [country.capital]);
+
   return (
     <div>
       <h1>{country.name}</h1>
@@ -22,6 +56,7 @@ const Country = ({ country }) => {
         ))}
       </ul>
       <img src={country.flag} alt="Flag" width="200px" />
+      <Weather weather={weather} capital={country.capital} />
     </div>
   );
 };
