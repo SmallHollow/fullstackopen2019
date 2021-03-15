@@ -20,18 +20,15 @@ const Part = ({ name, exercises }) => {
 const Content = ({ parts }) => {
   return (
     <div>
-      <Part name={parts[0].name} exercises={parts[0].exercises} />
-      <Part name={parts[1].name} exercises={parts[1].exercises} />
-      <Part name={parts[2].name} exercises={parts[2].exercises} />
+      {parts.map((part) => (
+        <Part key={part.name} name={part.name} exercises={part.exercises} />
+      ))}
     </div>
   );
 };
 
 const Total = ({ parts }) => {
-  const yht =
-    parts[0].exercises +
-    parts[1].exercises +
-    parts[2].exercises;
+  const yht = parts[0].exercises + parts[1].exercises + parts[2].exercises;
   return <p>yhteensä {yht} tehtävää</p>;
 };
 
