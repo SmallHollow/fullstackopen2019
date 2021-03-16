@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getAll, create } from './services/persons.js';
+import { getAll, create, remove } from './services/persons.js';
 
 const Filter = ({ nameFilter, handleFilterChange }) => {
   return (
@@ -32,7 +32,7 @@ const PersonForm = ({
   );
 };
 
-const Persons = ({ persons, nameFilter }) => {
+const Persons = ({ persons, nameFilter, handleDelete }) => {
   return (
     <ul>
       {persons
@@ -42,6 +42,7 @@ const Persons = ({ persons, nameFilter }) => {
         .map((person) => (
           <li key={person.name}>
             {person.name} {person.number}
+            <button onClick={() => handleDelete(person.id)}>delete</button>
           </li>
         ))}
     </ul>
@@ -75,6 +76,16 @@ const App = () => {
     }
   };
 
+  const handleDelete = (id) => {
+    const name = persons.find((person) => person.id === id).name;
+    const confirmResult = window.confirm(`Delete ${name}?`);
+    if (confirmResult) {
+      remove(id).then(() => {
+        setPersons(persons.filter((person) => id !== person.id));
+      });
+    }
+  };
+
   const handleNameChange = (event) => {
     setNewName(event.target.value);
   };
@@ -100,7 +111,11 @@ const App = () => {
         handleNumberChange={handleNumberChange}
       />
       <h2>Numbers</h2>
-      <Persons persons={persons} nameFilter={nameFilter} />
+      <Persons
+        persons={persons}
+        nameFilter={nameFilter}
+        handleDelete={handleDelete}
+      />
     </div>
   );
 };
