@@ -1,6 +1,8 @@
-const Notification = ({ message, error = false }) => {
+const Notification = ({ message }) => {
   return (
-    message && <div className={error ? 'error' : 'success'}>{message}</div>
+    message && (
+      <div className={message.error ? 'error' : 'success'}>{message.text}</div>
+    )
   );
 };
 

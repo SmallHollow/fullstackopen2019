@@ -42,7 +42,7 @@ const Persons = ({ persons, nameFilter, handleDelete }) => {
         )
         .map((person) => (
           <li key={person.name}>
-            {person.name} {person.number}
+            {person.name} {person.number}{' '}
             <button onClick={() => handleDelete(person.id)}>delete</button>
           </li>
         ))}
@@ -76,13 +76,29 @@ const App = () => {
           ...personObject,
           number: newNumber,
         };
-        update(updatedItem.id, updatedItem).then((uItem) => {
-          setPersons(persons.map((p) => (p.id !== uItem.id ? p : uItem)));
-          setMessage(`Updated number of ${uItem.name}`);
-          setTimeout(() => {
-            setMessage(null);
-          }, 5000);
-        });
+        update(updatedItem.id, updatedItem)
+          .then((uItem) => {
+            setPersons(persons.map((p) => (p.id !== uItem.id ? p : uItem)));
+            setMessage({
+              text: `Updated number of ${uItem.name}`,
+              error: false,
+            });
+            setTimeout(() => {
+              setMessage(null);
+            }, 5000);
+          })
+          .catch((error) => {
+            setMessage({
+              text: `Person ${updatedItem.name} was already deleted from the server`,
+              error: true,
+            });
+            setPersons(
+              persons.filter((person) => updatedItem.id !== person.id)
+            );
+            setTimeout(() => {
+              setMessage(null);
+            }, 5000);
+          });
       }
     } else {
       const newItem = {
@@ -91,7 +107,7 @@ const App = () => {
       };
       create(newItem).then((addedItem) => {
         setPersons(persons.concat(addedItem));
-        setMessage(`Added ${addedItem.name}`);
+        setMessage({ text: `Added ${addedItem.name}`, error: false });
         setTimeout(() => {
           setMessage(null);
         }, 5000);
@@ -103,13 +119,24 @@ const App = () => {
     const name = persons.find((person) => person.id === id).name;
     const confirmResult = window.confirm(`Delete ${name}?`);
     if (confirmResult) {
-      remove(id).then(() => {
-        setPersons(persons.filter((person) => id !== person.id));
-        setMessage(`Deleted ${name}`);
-        setTimeout(() => {
-          setMessage(null);
-        }, 5000);
-      });
+      remove(id)
+        .then(() => {
+          setPersons(persons.filter((person) => id !== person.id));
+          setMessage({ text: `Deleted ${name}`, error: false });
+          setTimeout(() => {
+            setMessage(null);
+          }, 5000);
+        })
+        .catch((error) => {
+          setMessage({
+            text: `Person ${name} was already deleted from the server`,
+            error: true,
+          });
+          setPersons(persons.filter((person) => id !== person.id));
+          setTimeout(() => {
+            setMessage(null);
+          }, 5000);
+        });
     }
   };
 
