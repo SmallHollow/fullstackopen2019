@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getAll, create, remove } from './services/persons.js';
+import { getAll, create, remove, update } from './services/persons.js';
 
 const Filter = ({ nameFilter, handleFilterChange }) => {
   return (
@@ -63,8 +63,21 @@ const App = () => {
 
   const addName = (event) => {
     event.preventDefault();
-    if (persons.find((person) => newName === person.name)) {
-      alert(`${newName} is already added to phonebook`);
+
+    const personObject = persons.find((person) => newName === person.name);
+    if (personObject) {
+      const confirmResult = window.confirm(
+        `${newName} is already added to phonebook, replace the old number with a new one?`
+      );
+      if (confirmResult) {
+        const updatedItem = {
+          ...personObject,
+          number: newNumber,
+        };
+        update(updatedItem.id, updatedItem).then((uItem) => {
+          setPersons(persons.map((p) => (p.id !== uItem.id ? p : uItem)));
+        });
+      }
     } else {
       const newItem = {
         name: newName,
